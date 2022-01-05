@@ -1,0 +1,69 @@
+class Student:
+    def __init__(self, name, department, reg_no):
+        self.dept = department
+        self.reg_no = reg_no
+        self.name = name
+
+    def create(self, Name, Department, Reg_no):
+        new = Student(Name, Department, Reg_no)
+        stud.append(new)
+
+    def update(self, regno, new_dept, new_name):
+        elem = element.search(regno)
+        nw = new_name
+        dep = new_dept
+        stud[elem].name = nw
+        stud[elem].department = dep
+
+    def display(self, new):
+        print("Register number: \t", new.reg_no)
+        print("Name:\t", new.name)
+        print("Department:\t", new.dept)
+
+    def search(self, regno):
+        for elem in range(stud.__len__()):
+            if stud[elem].reg_no == regno:
+                return elem
+
+
+stud = []
+element = Student('', '', 0)
+
+while True:
+
+    print('''    1) CREATE
+    2) UPDATE
+    3) DISPLAY
+    4) SEARCH
+    5) EXIT
+    ''')
+    a = int(input('Enter one of the above choices'))
+
+    if a == 1:  # CREATE
+        num = int(input('Enter the number of students to be added:\t'))
+        for i in range(num):
+            rgno = int(input('\nRegister number:\t'))
+            i_name = input('Name:\t')
+            i_dept = input('Department:\t')
+            element.create(i_name, i_dept, rgno)
+
+    elif a == 2:  # UPDATE
+        reg = int(input("Enter the register number to update:\t "))
+        na = (input("Enter new name\t "))
+        de = (input("Enter new department:\t "))
+        element.update(reg, na, de)
+
+    elif a == 3:  # DISPLAY
+        print("\n*****Student record*****\n")
+        for i in range(stud.__len__()):
+            element.display(stud[i])
+
+
+    elif a == 4:  # SEARCH
+        ser = int(input("Enter the register number of student you have to search: \t"))
+        s = element.search(ser)
+        print(s)
+        element.display(stud[s])
+
+    elif a == 5:
+        exit()
