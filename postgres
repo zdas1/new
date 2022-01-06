@@ -1,0 +1,43 @@
+import psycopg2 as pg
+
+try:
+    # Establishing the connection
+    conn = pg.connect(
+        database="arjun", user='das', password='arjun', host='localhost', port='5432'
+    )
+
+    cursor = conn.cursor()
+    cursor.execute("DROP TABLE IF EXISTS STUDENT")
+    # creating tables
+    sql = '''CREATE TABLE STUDENT(
+       REG_NUM INT, 
+       FIRST_NAME CHAR(18) NOT NULL,
+       DEPARTMENT CHAR(5)
+    )'''
+    cursor.execute(sql)
+
+    # adding student details
+
+    cursor.execute('''INSERT INTO STUDENT(REG_NUM, FIRST_NAME,  DEPARTMENT) VALUES (1,'Arjun','CSE')''')
+    cursor.execute('''INSERT INTO STUDENT(REG_NUM, FIRST_NAME,  DEPARTMENT) VALUES (2,'Sandeep','CSE')''')
+    cursor.execute('''INSERT INTO STUDENT(REG_NUM, FIRST_NAME,  DEPARTMENT) VALUES (3,'srarang','ECE')''')
+    cursor.execute('''INSERT INTO STUDENT(REG_NUM, FIRST_NAME,  DEPARTMENT) VALUES (4,'Sarath','ECE')''')
+    cursor.execute('''INSERT INTO STUDENT(REG_NUM, FIRST_NAME,  DEPARTMENT) VALUES (5,'Sagar','CSE')''')
+    conn.commit()
+
+    # Displaying student profiles
+    print('****STUDENT RECORDS****')
+    cursor.execute('''SELECT * from STUDENT''')
+    for result in cursor.fetchall():
+        print(result)
+
+    # deleting an entry
+    a = input('enter the name of the entry to be deleted\t')
+    delete_script = 'DELETE FROM student WHERE name = %s'
+    delete_record = (a)
+    print('the entry of', a, 'deleted successfully')
+
+    # Closing the connection
+    conn.close()
+except Exception as error:
+    print(error)
